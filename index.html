@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio // Cybersecurity Portfolio</title>
+<style>
+  :root{
+    --bg:#0a0510;
+    --bg-2:#120a1f;
+    --panel:#160c24;
+    --pink:#ff2d95;
+    --pink-soft:#ff6ec7;
+    --magenta:#c724ff;
+    --cyan:#22d3ee;
+    --text:#f5e9f5;
+    --muted:#b79bc4;
+    --line:rgba(255,45,149,.22);
+    --glow:0 0 18px rgba(255,45,149,.55);
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+    --sans:"Segoe UI",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%,rgba(199,36,255,.18),transparent 60%),
+               radial-gradient(900px 500px at 0% 20%,rgba(255,45,149,.12),transparent 55%),
+               var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  /* animated grid backdrop */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:linear-gradient(rgba(255,45,149,.06) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,45,149,.06) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(circle at 50% 20%,#000 0%,transparent 75%);
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(10,5,16,.72);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:var(--mono);font-weight:700;letter-spacing:1px;color:var(--pink);text-shadow:var(--glow)}
+  .logo span{color:var(--cyan)}
+  .navlinks{display:flex;gap:26px;font-family:var(--mono);font-size:.85rem}
+  .navlinks a{color:var(--muted);transition:.2s}
+  .navlinks a:hover{color:var(--pink);text-shadow:var(--glow)}
+  @media(max-width:640px){.navlinks{display:none}}
+
+  /* HERO */
+  header{padding:110px 0 90px;text-align:center;position:relative}
+  .tag{
+    font-family:var(--mono);font-size:.8rem;color:var(--cyan);
+    border:1px solid rgba(34,211,238,.4);border-radius:999px;
+    padding:6px 16px;display:inline-block;margin-bottom:26px;
+    background:rgba(34,211,238,.06)
+  }
+  header h1{
+    font-size:clamp(2.6rem,7vw,4.6rem);font-weight:800;line-height:1.05;
+    letter-spacing:-1px;margin-bottom:18px;
+  }
+  header h1 .name{
+    background:linear-gradient(90deg,var(--pink),var(--magenta),var(--cyan));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 24px rgba(255,45,149,.35));
+  }
+  .cursor{display:inline-block;width:.55ch;height:1em;background:var(--pink);
+    margin-left:4px;vertical-align:-2px;animation:blink 1s steps(1) infinite;box-shadow:var(--glow)}
+  @keyframes blink{50%{opacity:0}}
+  header p.sub{max-width:620px;margin:0 auto 34px;color:var(--muted);font-size:1.1rem}
+  header p.sub b{color:var(--pink-soft);font-weight:600}
+  .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    font-family:var(--mono);font-size:.9rem;padding:13px 26px;border-radius:10px;
+    border:1px solid var(--pink);color:var(--text);
+    background:linear-gradient(180deg,rgba(255,45,149,.18),rgba(255,45,149,.04));
+    box-shadow:var(--glow);transition:.2s;cursor:pointer
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 0 26px rgba(255,45,149,.75)}
+  .btn.ghost{border-color:rgba(34,211,238,.5);box-shadow:none;background:transparent;color:var(--cyan)}
+  .btn.ghost:hover{box-shadow:0 0 20px rgba(34,211,238,.5)}
+
+  /* SECTIONS */
+  section{padding:70px 0;position:relative}
+  .sec-label{font-family:var(--mono);color:var(--pink);font-size:.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+  .sec-label::before{content:"// "}
+  h2{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:22px;letter-spacing:-.5px}
+  .about-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:40px;align-items:start}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr}}
+  .about p{color:var(--muted);margin-bottom:16px;font-size:1.05rem}
+  .about p b{color:var(--text)}
+  .card{
+    background:linear-gradient(180deg,var(--panel),var(--bg-2));
+    border:1px solid var(--line);border-radius:16px;padding:24px;
+  }
+  .card h4{font-family:var(--mono);color:var(--cyan);font-size:.85rem;letter-spacing:1px;margin-bottom:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-family:var(--mono);font-size:.78rem;padding:6px 12px;border-radius:8px;
+    background:rgba(255,45,149,.08);border:1px solid var(--line);color:var(--pink-soft)}
+
+  /* ROLES */
+  .roles{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:640px){.roles{grid-template-columns:1fr}}
+  .role{
+    background:linear-gradient(180deg,var(--panel),var(--bg-2));
+    border:1px solid var(--line);border-radius:16px;padding:26px;
+    transition:.25s;position:relative;overflow:hidden
+  }
+  .role::after{content:"";position:absolute;inset:0;border-radius:16px;
+    box-shadow:inset 0 0 0 1px transparent;transition:.25s}
+  .role:hover{transform:translateY(-4px)}
+  .role:hover::after{box-shadow:inset 0 0 24px rgba(255,45,149,.18),inset 0 0 0 1px var(--pink)}
+  .role .ico{font-size:1.6rem;margin-bottom:12px}
+  .role h3{font-size:1.25rem;margin-bottom:8px;color:var(--pink-soft)}
+  .role p{color:var(--muted);font-size:.98rem}
+
+  /* PROJECTS */
+  .proj{
+    background:linear-gradient(180deg,var(--panel),var(--bg-2));
+    border:1px solid var(--line);border-radius:18px;padding:30px;margin-bottom:24px;
+    transition:.25s
+  }
+  .proj:hover{border-color:var(--pink);box-shadow:0 8px 40px rgba(255,45,149,.15)}
+  .proj-head{display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap}
+  .proj-head .repo{font-family:var(--mono);color:var(--cyan);font-size:.82rem}
+  .proj h3{font-size:1.4rem}
+  .proj .role-tag{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--pink);
+    border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+  .proj p{color:var(--muted);margin:14px 0;font-size:1.03rem}
+  .proj ul{list-style:none;display:grid;gap:8px;margin:16px 0}
+  .proj li{color:var(--muted);font-size:.97rem;padding-left:22px;position:relative}
+  .proj li::before{content:"▸";position:absolute;left:0;color:var(--pink)}
+
+  /* CONTACT */
+  #contact{text-align:center;padding-bottom:40px}
+  #contact p{color:var(--muted);max-width:520px;margin:0 auto 28px}
+
+  footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;
+    font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+  footer .logo{font-size:.9rem}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:.7s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">Efe<span>_o</span></div>
+    <div class="navlinks">
+      <a href="#about">about</a>
+      <a href="#roles">roles</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <span class="tag">available for opportunities</span>
+    <h1>hi, i'm <span class="name">Efe</span><span class="cursor"></span></h1>
+    <p class="sub">A <b>cybersecurity</b> girlie who breaks things to understand them and builds tools to defend them. I live in the terminal, chase alerts, and automate the boring parts of blue-team work.</p>
+    <div class="cta">
+      <a class="btn" href="#projects">view my work</a>
+      <a class="btn ghost" href="resume.pdf" download>download resume ↓</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-label">whoami</div>
+    <h2>Who I am</h2>
+    <div class="about-grid">
+      <div class="about reveal">
+        <p>I'm an <b>early-career cybersecurity practitioner and second year student </b> focused on defensive security. I got into the field the hands-on way: spinning up my own lab, generating attacks against it, and learning to see them from the other side of the SIEM.</p>
+        <p>I care about <b>detection engineering, threat hunting, and automation</b> turning noisy telemetry into signal, and repetitive analyst work into scripts. I document everything, because a finding no one can reproduce isn't a finding.</p>
+        <p>Outside the console I'm curious, detail-obsessed, and a little bit extra about clean dashboards and color-coded notes. Cyber, but make it me. 💽</p>
+      </div>
+      <div class="card reveal">
+        <h4>Tools i work with</h4>
+        <div class="chips">
+          <span class="chip">Splunk</span>
+          <span class="chip">Wazuh</span>
+          <span class="chip">Sysmon</span>
+          <span class="chip">MITRE ATT&CK</span>
+          <span class="chip">Python</span>
+          <span class="chip">Bash</span>
+          <span class="chip">PowerShell</span>
+          <span class="chip">Linux</span>
+          <span class="chip">Wireshark</span>
+          <span class="chip">Nmap</span>
+          <span class="chip">VirtualBox</span>
+          <span class="chip">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="roles">
+  <div class="wrap">
+    <div class="sec-label">what i do</div>
+    <h2>Roles I'm interested in</h2>
+    <div class="roles">
+      <div class="role reveal">
+        <div class="ico">🛡️</div>
+        <h3>SOC Analyst</h3>
+        <p>Monitoring, triggering, and investigating security alerts. Correlating logs across a SIEM, mapping activity to MITRE ATT&CK, escalating real threats, and writing clear incident notes, the frontline of detection & response.</p>
+      </div>
+      <div class="role reveal">
+        <div class="ico">⚙️</div>
+        <h3>Security Engineer</h3>
+        <p>Building and hardening the tooling that keeps defenders effective, deploying detection rules, automating alert triage, scripting response playbooks, and standing up monitoring infrastructure that scales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-label">selected work</div>
+    <h2>Projects</h2>
+
+    <div class="proj reveal">
+      <div class="proj-head">
+        <span class="repo">~/soc-home-lab</span>
+        <span class="role-tag">SOC / Blue Team</span>
+      </div>
+      <h3>SOC Home Lab</h3>
+      <p>A self-built security operations lab where I simulate attacks and practice detecting them end-to-end. I generated adversary activity against virtual endpoints, shipped the telemetry into a SIEM, and built the detections and dashboards to catch it.</p>
+      <ul>
+        <li>Deployed a virtualized environment (Windows + Linux endpoints) with centralized log collection.</li>
+        <li>Instrumented hosts with Sysmon and forwarded events into a SIEM for correlation.</li>
+        <li>Ran simulated attacks (recon, brute force, lateral movement) and mapped them to MITRE ATT&CK.</li>
+        <li>Wrote custom detection rules and dashboards, then documented each investigation as a repeatable playbook.</li>
+      </ul>
+    </div>
+
+    <div class="proj reveal">
+      <div class="proj-head">
+        <span class="repo">~/cybersec-ops-toolkit</span>
+        <span class="role-tag">Security Engineering</span>
+      </div>
+      <h3>Cybersec Ops Toolkit</h3>
+      <p>A collection of scripts and utilities I built to speed up everyday security operations — automating the repetitive tasks that eat an analyst's time so I can focus on the interesting alerts.</p>
+      <ul>
+        <li>Automation scripts for log parsing, IOC lookups, and enrichment of suspicious indicators.</li>
+        <li>Utilities to speed up triggers, quickly summarizing alerts and pulling context on hosts and users.</li>
+        <li>Reusable, documented tooling in Python and Bash with clear usage instructions.</li>
+        <li>Built with an operations mindset: modular, version-controlled, and easy for a team to adopt.</li>
+      </ul>
+      <p>You can find them here: <b><a href="https://github.com/Efe3000?tab=repositories">click me</a></b></p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-label">get in touch</div>
+    <h2>Let's talk</h2>
+    <p>Hiring for a SOC or security engineering role? I'd love to hear about it. The fastest way to reach me is email -> resume's a click away.</p>
+    <div class="cta">
+      <a class="btn" href="mailto:efeoseremen@gmail.com">efeoseremen@gmail.com</a>
+      <a class="btn ghost" href="resume.pdf" download>download resume ↓</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo">kvng<span>_E</span></div>
+    <div style="margin-top:8px">built &amp; secured with 💗 · cyber tech girlie</div>
+  </div>
+</footer>
+
+<script>
+  // typewriter-ish blink already CSS; scroll reveal:
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
