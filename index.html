@@ -140,6 +140,11 @@
   .proj ul{list-style:none;display:grid;gap:8px;margin:16px 0}
   .proj li{color:var(--muted);font-size:.97rem;padding-left:22px;position:relative}
   .proj li::before{content:"▸";position:absolute;left:0;color:var(--pink)}
+  .proj-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+  .proj-links a{font-family:var(--mono);font-size:.82rem;color:var(--cyan);border:1px solid rgba(34,211,238,.35);
+    padding:6px 14px;border-radius:8px;transition:.2s}
+  .proj-links a:hover{background:rgba(34,211,238,.1);box-shadow:0 0 14px rgba(34,211,238,.35)}
+  .stack-line{font-family:var(--mono);font-size:.82rem;color:var(--pink-soft);margin-top:4px}
 
   /* CONTACT */
   #contact{text-align:center;padding-bottom:40px}
@@ -187,7 +192,7 @@
       <div class="about reveal">
         <p>I'm an <b>early-career cybersecurity practitioner </b> focused on defensive security. I got into the field the hands-on way: spinning up my own lab, generating attacks against it, and learning to see them from the other side of the SIEM.</p>
         <p> With <b>5 years of experience as a software developer </b> helping businesses establish and grow their online presence, I've built real-world solutions using Python, JavaScript, Java, and Spring Boot. Over those years I developed a deep appreciation for how systems are built and, just as importantly, how they can be exposed.
-          That understanding is what drew me to cybersecurity. I'm now ready to pivot into the field, and I've been able to build hands-on projects that demonstrate my capability, including a SOC home lab where I simulate attacks, forward telemetry into a SIEM, and engineer detections to catch them, and a security operations toolkit that automates routine analyst tasks. My development background allows me to go beyond simply operating security tools; I can understand the code behind them and build my own.
+          That understanding is what drew me to cybersecurity. I'm now ready to pivot into the field, and I've been able to build hands-on projects that demonstrate my capability, including a SOC home lab where I simulate attacks, forward telemetry into a SIEM, and engineer detections to catch them, an IAM control-plane project securing AI agent access, and a security operations toolkit that automates routine analyst tasks. My development background allows me to go beyond simply operating security tools; I can understand the code behind them and build my own.
           I'm seeking an opportunity to begin my cybersecurity career as a SOC Analyst, IAM Analyst, or Security Engineer, where I can apply a developer's technical foundation alongside a defender's mindset to help protect the systems businesses rely on.</p>
         <p>Outside the console I'm curious, detail-obsessed, and a little bit extra about clean dashboards and color-coded notes. Cyber, but make it me. 💽</p>
       </div>
@@ -202,6 +207,10 @@
           <span class="chip">Bash</span>
           <span class="chip">PowerShell</span>
           <span class="chip">Linux</span>
+          <span class="chip">Docker</span>
+          <span class="chip">OPA / Rego</span>
+          <span class="chip">SPIFFE / SPIRE</span>
+          <span class="chip">JWT / OAuth</span>
           <span class="chip">Wireshark</span>
           <span class="chip">Nmap</span>
           <span class="chip">VirtualBox</span>
@@ -240,6 +249,28 @@
   <div class="wrap">
     <div class="sec-label">selected work</div>
     <h2>Projects</h2>
+
+    <div class="proj reveal">
+      <div class="proj-head">
+        <span class="repo">~/access-broker</span>
+        <span class="role-tag">IAM / Security Engineering</span>
+      </div>
+      <h3>AI Agent Access Broker</h3>
+      <p>An externalized IAM control plane built to prove that a fully compromised AI agent identity still can't act outside its authorized boundary — seven independent services chained together in Docker, each enforcing a different layer of defense in depth.</p>
+      <ul>
+        <li>Fronted a mock sensitive-data API with a gateway enforcing default-deny route whitelisting and JWT verification.</li>
+        <li>Built a token-service issuing short-lived, scoped credentials (RFC 8693-style exchange) instead of standing API keys.</li>
+        <li>Externalized authorization into Open Policy Agent (Rego) — policy changes take effect with zero application code touched or redeployed.</li>
+        <li>Added a fail-closed human-approval gate for high-risk actions, so an unreviewed request is denied by default, not silently allowed.</li>
+        <li>Bootstrapped SPIFFE/SPIRE workload identity (server, agent, cryptographic SVIDs) so trust is based on verified identity, not network position.</li>
+        <li>Built an ITDR layer that logs every access decision and flags anomalous patterns (e.g. repeated denials from one identity) that individual enforcement can't see on its own.</li>
+        <li>Wrote a scripted attack simulation (<code>demo.sh</code>) walking a prompt-injected agent's request pattern through all five preventive layers plus detection — live, repeatable, and fully documented.</li>
+      </ul>
+      <div class="stack-line">Python · Flask · Docker Compose · PyJWT · OPA/Rego · SPIFFE/SPIRE</div>
+      <div class="proj-links">
+        <a href="https://github.com/Efe3000/access-broker">github repo ↗</a>
+      </div>
+    </div>
 
     <div class="proj reveal">
       <div class="proj-head">
